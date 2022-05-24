@@ -27,10 +27,10 @@ import com.training.springboot.repository.UserRepository;
 public class UserController {		
 		@Autowired
 	    UserRepository userRepository;
-		
+	
 		
 		//retrieve all students from database
-		//@GetMapping("/getAllUsers")
+		@GetMapping("/getAllUsers")
 		public ResponseEntity<List<User>> getAllUsers(){
 			List<User> users = new ArrayList<User>();
 			userRepository.findAll().forEach(users::add);

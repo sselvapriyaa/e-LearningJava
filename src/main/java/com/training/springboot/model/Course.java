@@ -32,8 +32,8 @@ public class Course {
     @Column(name = "COURSE_FEE")
     private double courseFee;
     
-    @OneToMany(fetch=FetchType.EAGER, mappedBy = "course", cascade = CascadeType.ALL) 
-    private Set<Enrollment> enrollment;
+    //@OneToMany(fetch=FetchType.EAGER, mappedBy = "course", cascade = CascadeType.ALL) 
+    //private Set<Enrollment> enrollment;
     
 	public Course() {
 		
@@ -87,13 +87,13 @@ public class Course {
 		this.courseFee = courseFee;
 	}
 
-	public Set<Enrollment> getEnrollment() {
+	/*public Set<Enrollment> getEnrollment() {
 		return enrollment;
 	}
 
 	public void setEnrollment(Set<Enrollment> enrollment) {
 		this.enrollment = enrollment;
-	}
+	}*/
 
 
     
