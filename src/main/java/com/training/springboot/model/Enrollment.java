@@ -1,5 +1,7 @@
 package com.training.springboot.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+
 @Table(name = "enrollment")
 public class Enrollment {
 	
@@ -36,13 +40,26 @@ public class Enrollment {
     @Column(name = "COURSE_ID", insertable = false, updatable = false)
     //@Column(name = "COURSE_ID")
     private int courseId;
-    
    
+    @ManyToMany(targetEntity = User.class)
+    private Set<User> userSet;
+
+
     /*private String courseName;
     private String courseResource;  
     private String courseDesc;
     private double courseFee;*/
     
+	public Set<User> getUserSet() {
+		return userSet;
+	}
+
+
+	public void setUserSet(Set<User> userSet) {
+		this.userSet = userSet;
+	}
+
+
 	public Enrollment() {
 	
 	}

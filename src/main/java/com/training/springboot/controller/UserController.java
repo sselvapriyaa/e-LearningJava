@@ -27,8 +27,9 @@ import com.training.springboot.repository.UserRepository;
 public class UserController {		
 		@Autowired
 	    UserRepository userRepository;
+		private ResponseEntity<User> rs;
+
 	
-		
 		//get all students from database
 		@GetMapping("/getAllUsers")
 		public ResponseEntity<List<User>> getAllUsers(){
@@ -152,27 +153,27 @@ public class UserController {
 		
 	    }
 		    	//Getting User By Id
-		       @GetMapping("/user/{id}")
-		        public ResponseEntity<User> getStudentId(@PathVariable("id") int id) throws Exception{
+		       /*@GetMapping("/user/{id}")
+		        public ResponseEntity<User>  getUserId(@PathVariable("id") int id) throws Exception{
 		        	Optional<User> user = userRepository.findById(id);
 		        	if(user == null) {
 		        	       throw new Exception("Invalid user id : " + user);
 		        	    }
 		        	return new ResponseEntity<User>(HttpStatus.OK);			
 				        	
-		        }
+		        }*/
 		    //Getting User By Id
-		   /* @GetMapping("/user/{id}")
-		    public ResponseEntity<User> getStudentId(@PathVariable("id") int id){
+		    @GetMapping("/user/{id}")
+		    public ResponseEntity<User> getUserId(@PathVariable("id") Integer id){
 	        	Optional<User> userData = userRepository.findById(id);
 	        	
 	        	if(userData.isPresent()){
-	        		return new ResponseEntity<User>(userData.get(),HttpStatus.OK);
+	        		return new ResponseEntity<>(userData.get(),HttpStatus.OK);
 	        	    }else {
 	        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 	        	    }
 			        	
-	        }*/
+	        }
 		           
 		        //update user
 		       /* @PutMapping("/user/{id}")
@@ -281,15 +282,15 @@ public class UserController {
 	    				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    			}
 	    			}
-	    		@GetMapping("/loginUser")
+	    		/*@GetMapping("/loginUser")
 	    		public ResponseEntity<List<User>> loginUser(){
 	    			List<User> users = new ArrayList<User>();
 	    			userRepository.findAll().forEach(users::add);
 	    			System.out.println(users);
 	    			return new ResponseEntity<>(users,HttpStatus.OK);
-	    		}
-	    		//@PostMapping("/loginUser")
-	    		/*public ResponseEntity<User> loginUser(@RequestBody User user){
+	    		}*/
+	    /*		@PostMapping("/loginUser")
+	    		public ResponseEntity<User> loginUser(@RequestBody User user){
 	    			System.out.println("user" +user);
 	    			ResponseEntity<User> rs = new ResponseEntity<>(HttpStatus.CREATED);
 	    			List<User> userData = userRepository.findAll();
@@ -300,20 +301,65 @@ public class UserController {
 	    						usr.getEmail().equalsIgnoreCase(user.getEmail()) &&
 	    						usr.getPassword().equals(user.getPassword()))
 	    				{ 
-	    					rs = new ResponseEntity<>(usr, HttpStatus.OK);
+	    					 new ResponseEntity<>(usr, HttpStatus.OK);
 	    					
 	    				} else
 	    				{
-	    					ResponseEntity.status(HttpStatus.NOT_FOUND);
+	    					new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    				}
 	    			}
 					return rs;
+					
 	    			
+	    		}
+}*/
+	    		
+	    					/*return new ResponseEntity<User>(usr, HttpStatus.OK);
+	    					//return new ResponseEntity<>(userRepository.save(_user),HttpStatus.OK);
+	    					}else
+	    					{
+	    					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    					}
+	    			}
+					//return rs;
+					return null;
 	    		}*/
 	    		
+	    		//}
+
+@PostMapping("/loginUser")
+public ResponseEntity<User> loginUser(@RequestBody User user){
+
+	System.out.println("user"+user);
+	ResponseEntity<User> rs = new ResponseEntity<>(HttpStatus.CREATED);
+	List<User> userData = userRepository.findAll();
+
+	for(User usr:userData) {
 		
-	    		
-	    		}
+		if (usr.getUserName().equalsIgnoreCase(user.getUserName()) && 
+				usr.getEmail().equalsIgnoreCase(user.getEmail()) && 
+				usr.getPassword().equals(user.getPassword()))
+		{
+			rs = new ResponseEntity<>(usr, HttpStatus.OK);
+		
+	
+	}
+		else
+		{
+		
+			ResponseEntity.status(HttpStatus.NOT_FOUND);
+			
+	}
+	}
+	return rs;
+	
+	
+
+
+}
+}
+
+
 
 		    	
 		        

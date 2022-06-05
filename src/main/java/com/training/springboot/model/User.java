@@ -1,5 +1,7 @@
 package com.training.springboot.model;
 
+import java.util.Set;
+
 //import java.util.Set;
 
 //import javax.persistence.CascadeType;
@@ -9,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,10 +23,15 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	//private int studentId;
-	@Column(name = "userId", unique = true)
+	
+
+	@Column(name = "USER_ID", unique = true)
+	
+	//@Column(name = "userId", unique = true)
+	//@Column(name = "userId")
 	private int userId;
 	
+
 	@Column(name = "firstName", nullable = false)
     private String firstName;
 	
@@ -55,7 +63,8 @@ public class User {
 	//private Set<Feedback> feedback;
 	
 	//@OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL)
-	//private Set<Enrollment> enrollment;
+	@ManyToMany(targetEntity = Enrollment.class)
+	private Set<Enrollment> enrollment;
 	
 	public User() {
 		
@@ -84,6 +93,13 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 		this.role = role;
+	}
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -175,8 +191,4 @@ public class User {
 	}*/
 	
 
-	
-
-	
-	
 }

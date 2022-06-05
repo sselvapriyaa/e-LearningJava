@@ -57,13 +57,33 @@ public class EnrollmentController {
  		return new ResponseEntity<>(_enrollment, HttpStatus.CREATED);
 
  	}*/
-  //Adding new Enrollment
-    @PostMapping("/addEnrollment")
+  //Adding new Enrollment old method
+    /*@PostMapping("/addEnrollment")
     public ResponseEntity<Enrollment> addEnrollment(@RequestBody Enrollment enrollment){
     	Enrollment _enrollment = enrollmentRepository.save(new Enrollment(enrollment.getCourseId(), enrollment.getEnrollmentID()));
     	return new ResponseEntity<Enrollment>(_enrollment, HttpStatus.CREATED);
-    }
+    }*/
     
+    
+  //Adding new Enrollment
+    @PostMapping("/addEnrollment")
+    public ResponseEntity<Enrollment> addEnrollment(@RequestBody Enrollment enrollment){
+    	/*try {
+    		//if(enrollment.getEnrollmentID() == null || enrollment.getEnrollmentID().isEmpty()){
+    					
+				//return new ResponseEntity<>(HttpStatus. NO_CONTENT);
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    		}
+				System.out.println(enrollment);*/				
+				Enrollment _enrollment = enrollmentRepository.save(new Enrollment(enrollment.getEnrollmentID(), enrollment.getUserId()));
+    		return new ResponseEntity<Enrollment>(_enrollment, HttpStatus.CREATED);
+    	//}catch(Exception e) {
+    		//return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+			
+    	}
+		
+	
+   // }
     
   //Getting course By Id
   //  @GetMapping("/course/{id}")
